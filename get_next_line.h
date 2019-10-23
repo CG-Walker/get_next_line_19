@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:05:20 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/23 19:53:56 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2019/10/23 19:59:26 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int		ft_strchr(const char *str, int c);
 
 size_t	ft_strlen(const char *str);
 
-char	*ft_strcpy(char *dst, const char *src);
 char	*ft_strdup(const char *s1);
 char	*ft_strjoin(char const *s1, char const *s2);
 #endif
