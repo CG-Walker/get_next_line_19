@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:04:50 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/23 20:38:25 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2019/10/23 22:29:30 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ size_t	check_rest(char *s)
 {
 	size_t i;
 
+	i = 0;
 	if (s == NULL)
 		return (0);
 	while(*s++)
@@ -104,15 +105,13 @@ int		get_next_line(int fd, char **line)
 	int				ret;
 
 	*line = NULL;
-	if (check_rest(rest) > 1)
+	if (check_rest(rest) > 0)
 	{
 		rest_cpy = ft_strdup(rest);
-		printf("\nREST BEFORE : {%s}\n", rest);
 		rest = ft_strrealloc(rest, ft_strchr(rest, '\n'));
-		printf("\nREST AFTER : {%s}\n", rest);
 		*line = ft_strjoin(*line, rest);
 		rest = ft_strdup(&rest_cpy[ft_strchr(rest_cpy, '\n') + 1]);
-		printf("\nREST AFTER AFTER : {%s}\n", rest);
+		return (1);
 	}
 	else
 	{
@@ -121,7 +120,6 @@ int		get_next_line(int fd, char **line)
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
-		printf("\nBUFF : %s\n", buff);
 		*line = ft_strjoin(*line, buff);
 		if (ft_strchr(buff, '\n') != -1)
 		{
@@ -141,6 +139,6 @@ int		main(int argc, char *argv[])
 	for (int i = 0 ; i < 5 ; i++)
 	{
 		get_next_line(fd, line);
-		printf("\n[%i] : %s\n", i, *line);
+		printf("[%i] : %s\n", i, *line);
 	}
 }
