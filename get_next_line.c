@@ -35,42 +35,52 @@ char	*strcut(char *s, size_t size)
 		return (NULL);
 	ft_memcpy(s, copy, size + 1);
 	s[size] = '\0';
+    free(copy);
 	return (s);
+}
+
+int arrange_rest(int fd, char **rest, char **line)
+{
+    char    *rest_cpy;
+    
+    if (rest[fd] != NULL && rest[fd][0] == '\n')
+    {
+        rest_cpy = ft_strdup(rest[fd]);
+        rest[fd] = strcut(rest[fd], 0);
+        *line = ft_strjoin(*line, rest[fd]);
+        rest[fd] = ft_strdup(&rest_cpy[ft_strchr(rest_cpy, '\n') + 1]);
+        free(rest_cpy);
+        return (1);
+    }
+    else if (rest[fd] != NULL && check_rest(rest[fd]) > 0)
+    {
+        rest_cpy = ft_strdup(rest[fd]);
+        rest[fd] = strcut(rest[fd], ft_strchr(rest[fd], '\n'));
+        *line = ft_strjoin(*line, rest[fd]);
+        rest[fd] = ft_strdup(&rest_cpy[ft_strchr(rest_cpy, '\n') + 1]);
+        free(rest_cpy);
+        return (1);
+    }
+    else
+    {
+        *line = ft_strjoin(*line, rest[fd]);
+        rest[fd] = NULL;
+        free(rest[fd]);
+        return (0);
+    }
 }
 
 int		get_next_line(int fd, char **line)
 {
 	char			buff[BUFFER_SIZE + 1];
 	static char		*rest[OPEN_MAX];
-	char			*rest_cpy;
 	int				ret;
     
 	if (fd < 0 || fd > OPEN_MAX || line == NULL)
 		return (-1);
 	*line = NULL;
-    if (rest[fd] != NULL && rest[fd][0] == '\n')
-	{
-		rest_cpy = ft_strdup(rest[fd]);
-		rest[fd] = strcut(rest[fd], 0);
-		*line = ft_strjoin(*line, rest[fd]);
-		rest[fd] = ft_strdup(&rest_cpy[ft_strchr(rest_cpy, '\n') + 1]);
-        free(rest_cpy);
+    if (arrange_rest(fd, rest, line) == 1)
         return (1);
-	}
-	if (rest[fd] != NULL && check_rest(rest[fd]) > 0)
-	{
-		rest_cpy = ft_strdup(rest[fd]);
-        (rest[fd][0] == '\n') ? (rest[fd] = strcut(rest[fd], 0)) : (rest[fd] = strcut(rest[fd], ft_strchr(rest[fd], '\n')));
-		*line = ft_strjoin(*line, rest[fd]);
-		rest[fd] = ft_strdup(&rest_cpy[ft_strchr(rest_cpy, '\n') + 1]);
-        free(rest_cpy);
-		return (1);
-	}
-	else
-    {
-		*line = ft_strjoin(*line, rest[fd]);
-        rest[fd] = NULL;
-    }
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
@@ -87,6 +97,7 @@ int		get_next_line(int fd, char **line)
 	return (ret == -1 ? -1 : 0);
 }
 
+/*
 int		main(int argc, char *argv[])
 {
 	char **line;
@@ -99,3 +110,4 @@ int		main(int argc, char *argv[])
         free(*line);
 	}
 }
+*/
