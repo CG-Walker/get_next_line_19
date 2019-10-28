@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:05:20 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/23 21:57:34 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2019/10/24 15:32:21 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <limits.h>
 
 #include <stdio.h>
 
