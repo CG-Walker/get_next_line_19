@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:05:11 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/29 18:01:20 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2019/10/29 18:54:26 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ char	*ft_strdup(char *s1)
 	size_t	size_s1;
 
 	i = -1;
+	if (!s1)
+		return (NULL);
 	size_s1 = ft_strlen(s1);
-	if (!(copy = malloc((sizeof(char) * size_s1) + 1)))
+	if (!(copy = malloc(sizeof(char) * (size_s1 + 1))))
 		return (NULL);
 	while (++i < size_s1)
 		copy[i] = s1[i];

@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:04:50 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/29 18:00:39 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2019/10/29 18:54:07 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,8 @@ int		mod_rest(int fd, char **rest, char **line)
 	else
 	{
 		*line = stradd(*line, rest[fd]);
-		rest[fd] = NULL;
 		free(rest[fd]);
+		rest[fd] = NULL;
 		return (0);
 	}
 }
@@ -87,5 +87,5 @@ int		get_next_line(int fd, char **line)
 	}
 	if (ft_strlen(*line))
 		return (1);
-	return (ret == -1 ? -1 : 0);
+	return (ret);
 }
