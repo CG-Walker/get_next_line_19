@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:05:20 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/24 15:32:21 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2019/10/29 17:57:35 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@
 # include <fcntl.h>
 # include <limits.h>
 
-#include <stdio.h>
-
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 
 int		get_next_line(int fd, char **line);
@@ -41,6 +39,7 @@ int		ft_strchr(const char *str, int c);
 
 size_t	ft_strlen(const char *str);
 
-char	*ft_strdup(const char *s1);
-char	*ft_strjoin(char *s1, char const *s2);
+char	*ft_strdup(char *s1);
+char	*stradd(char *s1, char const *s2);
+
 #endif

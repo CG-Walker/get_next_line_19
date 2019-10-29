@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:05:11 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/23 19:53:59 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2019/10/29 18:01:20 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@ size_t	ft_strlen(const char *s)
 	return (len);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *s1)
 {
 	char	*copy;
 	size_t	i;
+	size_t	size_s1;
 
 	i = -1;
-	if (!(copy = malloc((sizeof(char) * ft_strlen(s1)) + 1)))
+	size_s1 = ft_strlen(s1);
+	if (!(copy = malloc((sizeof(char) * size_s1) + 1)))
 		return (NULL);
-	while (++i < ft_strlen(s1))
+	while (++i < size_s1)
 		copy[i] = s1[i];
 	copy[i] = '\0';
 	return (copy);
@@ -53,34 +55,37 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	return (dst);
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*stradd(char *s1, char const *s2)
 {
-	char *ret;
-    char *cpy;
+	char	*ret;
+	size_t	size_s1;
+	size_t	size_s2;
 
+	size_s1 = ft_strlen(s1);
+	size_s2 = ft_strlen(s2);
 	if (s1 == NULL && s2 == NULL)
 		return (NULL);
-    cpy = ft_strdup(s1);
-    free(s1);
-	if (!(ret = malloc((sizeof(char) * (ft_strlen(cpy) + ft_strlen(s2)) + 1))))
+	if (!(ret = malloc((sizeof(char) * (size_s1 + size_s2) + 1))))
 		return (NULL);
 	if (s1 != NULL)
 	{
-		ft_memcpy(ret, cpy, ft_strlen(cpy));
-		ft_memcpy(&ret[ft_strlen(cpy)], s2, ft_strlen(s2) + 1);
+		ft_memcpy(ret, s1, size_s1);
+		ft_memcpy(&ret[size_s1], s2, size_s2 + 1);
+		free(s1);
 	}
 	else
-		ft_memcpy(ret, s2, ft_strlen(s2) + 1);
-    free(cpy);
+		ft_memcpy(ret, s2, size_s2 + 1);
 	return (ret);
 }
 
 int		ft_strchr(const char *s, int c)
 {
 	size_t i;
+	size_t size_s;
 
 	i = 0;
-	while (i < ft_strlen(s))
+	size_s = ft_strlen(s);
+	while (i < size_s)
 	{
 		if (c == s[i])
 			return (i);
