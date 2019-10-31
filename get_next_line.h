@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:05:20 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/29 17:57:35 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2019/10/29 20:10:47 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #  define BUFFER_SIZE 100
 # endif
 
-# define SUCCESS 1
-# define READ_OVER 0
+# define READ 1
+# define OVER 0
 # define ERROR -1
 
 # define BOOL int

@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:04:50 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/29 18:54:07 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2019/10/29 20:11:22 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		mod_rest(int fd, char **rest, char **line)
 		free(rest[fd]);
 		rest[fd] = ft_strdup(&rest_cpy[ft_strchr(rest_cpy, '\n') + 1]);
 		free(rest_cpy);
-		return (1);
+		return (READ);
 	}
 	else
 	{
@@ -70,10 +70,10 @@ int		get_next_line(int fd, char **line)
 	int				ret;
 
 	if (fd < 0 || fd > OPEN_MAX || line == NULL)
-		return (-1);
+		return (ERROR);
 	*line = NULL;
 	if (mod_rest(fd, rest, line) == 1)
-		return (1);
+		return (READ);
 	while ((ret = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		buff[ret] = '\0';
@@ -82,10 +82,27 @@ int		get_next_line(int fd, char **line)
 		{
 			rest[fd] = ft_strdup(&buff[ft_strchr(buff, '\n') + 1]);
 			*line = strcut(*line, ft_strchr(*line, '\n'));
-			return (1);
+			return (READ);
 		}
 	}
 	if (ft_strlen(*line))
-		return (1);
+		return (READ);
 	return (ret);
 }
+/*
+#include <stdio.h>
+
+int main()
+{
+	char **line;
+	int fd = open("file_test", O_RDONLY);
+	char *ret;
+	int i = 1;
+	while(get_next_line(fd,line))
+	{
+		printf("[%i] ==>	%s\n", i, *line);
+		free(*line);
+		i++;
+	}
+}
+*/
