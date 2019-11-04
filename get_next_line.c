@@ -6,7 +6,7 @@
 /*   By: cgoncalv <cgoncalv@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/14 17:04:50 by cgoncalv          #+#    #+#             */
-/*   Updated: 2019/10/29 20:11:22 by cgoncalv         ###   ########.fr       */
+/*   Updated: 2019/11/04 15:57:03 by cgoncalv         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,21 @@ int		mod_rest(int fd, char **rest, char **line)
 	}
 }
 
+int		last_line(char **line)
+{
+	if (!(*line = malloc(sizeof(char) * 1)))
+		return (-1);
+	*line[0] = '\0';
+	return (0);
+}
+
 int		get_next_line(int fd, char **line)
 {
 	char			buff[BUFFER_SIZE + 1];
 	static char		*rest[OPEN_MAX];
 	int				ret;
 
-	if (fd < 0 || fd > OPEN_MAX || line == NULL)
+	if (fd < 0 || fd > OPEN_MAX || line == NULL || BUFFER_SIZE <= 0)
 		return (ERROR);
 	*line = NULL;
 	if (mod_rest(fd, rest, line) == 1)
@@ -85,24 +93,7 @@ int		get_next_line(int fd, char **line)
 			return (READ);
 		}
 	}
-	if (ft_strlen(*line))
-		return (READ);
+	if (ft_strlen(*line) == 0 && ret == 0)
+		return (last_line(line));
 	return (ret);
 }
-/*
-#include <stdio.h>
-
-int main()
-{
-	char **line;
-	int fd = open("file_test", O_RDONLY);
-	char *ret;
-	int i = 1;
-	while(get_next_line(fd,line))
-	{
-		printf("[%i] ==>	%s\n", i, *line);
-		free(*line);
-		i++;
-	}
-}
-*/
